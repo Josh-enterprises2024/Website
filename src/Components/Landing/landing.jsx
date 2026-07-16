@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import logo from '../../assets/logo.jpg'
 import './landing.css'
+import MobileNav from '../MobileNav/MobileNav.jsx'
 
 function Landing({ children }) {
     const rootRef = useRef(null)
@@ -13,6 +14,7 @@ function Landing({ children }) {
     // Form tracking states
     const [formData, setFormData] = useState({
         name: '',
+        phone: '',
         email: '',
         interest: '',
         message: ''
@@ -158,7 +160,7 @@ function Landing({ children }) {
 
             if (resData.success) {
                 alert('Thank you! Your message has been sent directly to Josh Enterprises.')
-                setFormData({ name: '', email: '', interest: '', message: '' }) // Clears inputs
+                setFormData({ name: '', phone: '', email: '', interest: '', message: '' }) // Clears inputs
             } else {
                 alert('Oops! Submission failed: ' + resData.message)
             }
@@ -206,6 +208,16 @@ function Landing({ children }) {
                     <div className="hero-btns animate-up delay-2">
                         <a href="#products" className="btn-primary">Explore Products</a>
                         <a href="#contact" className="btn-secondary">Get a Quote</a>
+                    </div>
+                    <div className="hero-stats animate-up delay-3">
+                        <div className="hero-stat-item">
+                            <span>1100+</span>
+                            <p>Happy Clients</p>
+                        </div>
+                        <div className="hero-stat-item">
+                            <span>650+</span>
+                            <p>Installations</p>
+                        </div>
                     </div>
                 </div>
                 <div className="hero-bg-overlay"></div>
@@ -316,6 +328,16 @@ function Landing({ children }) {
                                 />
                             </div>
                             <div className="form-group">
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    placeholder="Your Phone"
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
                                 <select 
                                     name="interest" 
                                     value={formData.interest} 
@@ -371,6 +393,7 @@ function Landing({ children }) {
             <a href="#home" className={`float-btn back-to-top ${showBackToTop ? 'show' : ''}`}>
                 <i className="fa-solid fa-arrow-up"></i>
             </a>
+            <MobileNav />
         </div>
     )
 }

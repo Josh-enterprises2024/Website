@@ -81,6 +81,7 @@ function ProductCard({ product, onOpenModal }) {
 
     return (
         <div
+            id={product.id}
             className="product-card reveal"
             ref={cardRef}
             onMouseMove={handleMouseMove}

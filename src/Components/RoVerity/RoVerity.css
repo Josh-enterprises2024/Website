@@ -64,6 +64,22 @@
     gap: 1.5rem;
 }
 
+.ro-verity-section {
+    margin-bottom: 1.5rem;
+}
+
+.ro-verity-section-title {
+    font-size: 1.2rem;
+    margin: 0 0 1rem;
+    color: var(--secondary-color);
+}
+
+.ro-verity-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+    margin: 1.5rem 0;
+}
+
 .ro-product-block {
     background: white;
     border: 1px solid #e2e8f0;

@@ -46,10 +46,18 @@ const RO_PRODUCTS = [
     { folder: 'Aqua mars', name: 'Aqua Mars', price: 9499 },
 ]
 
-function ProductBlock({ product }) {
+const COMMERCIAL_RO = [
+    { folder: 'Comersial', name: '50 L/hr', price: 28888, imageFilename: '001.jpeg' },
+    { folder: 'Comersial', name: '25 L/hr', price: 20000, imageFilename: '002.jpeg' },
+]
+
+function ProductBlock({ product, variantFilename }) {
     const variants = getVariants(product.folder)
     const [selected, setSelected] = useState(0)
-    const activeImg = variants[selected]?.url
+    const activeVariant = variantFilename
+        ? variants.find((variant) => variant.filename === variantFilename) || variants[0]
+        : variants[selected] || variants[0]
+    const activeImg = activeVariant?.url
 
     return (
         <div className="ro-product-block">
@@ -66,7 +74,7 @@ function ProductBlock({ product }) {
                 <div className="ro-product-preview ro-item-noimg">No Image</div>
             )}
 
-            {variants.length > 1 && (
+            {!variantFilename && variants.length > 1 && (
                 <div className="ro-variant-row">
                     {variants.map((variant, i) => (
                         <button
@@ -110,10 +118,28 @@ function RoVerity({ onClose }) {
                     <p>Choose from our wide range of RO Water Purifiers</p>
                 </div>
 
-                <div className="ro-verity-grid">
-                    {RO_PRODUCTS.map((product) => (
-                        <ProductBlock key={product.folder} product={product} />
-                    ))}
+                <div className="ro-verity-section">
+                    <h3 className="ro-verity-section-title">RO Products</h3>
+                    <div className="ro-verity-grid">
+                        {RO_PRODUCTS.map((product) => (
+                            <ProductBlock key={product.folder} product={product} />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="ro-verity-divider" />
+
+                <div className="ro-verity-section">
+                    <h3 className="ro-verity-section-title">Commercial RO</h3>
+                    <div className="ro-verity-grid">
+                        {COMMERCIAL_RO.map((product) => (
+                            <ProductBlock
+                                key={`${product.folder}-${product.name}`}
+                                product={product}
+                                variantFilename={product.imageFilename}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
