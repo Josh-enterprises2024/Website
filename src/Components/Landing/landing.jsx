@@ -249,11 +249,11 @@ function Landing({ children }) {
                         </p>
                         <div className="stats">
                             <div className="stat-item">
-                                <span className="count" data-target="358">0</span><span>+</span>
+                                <span className="count" data-target="1100">0</span><span>+</span>
                                 <p>Happy Clients</p>
                             </div>
                             <div className="stat-item">
-                                <span className="count" data-target="202">0</span><span>+</span>
+                                <span className="count" data-target="650">0</span><span>+</span>
                                 <p>Installations</p>
                             </div>
                             <div className="stat-item">
