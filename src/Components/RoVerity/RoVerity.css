@@ -19,7 +19,7 @@
 .ro-verity-panel {
     background: var(--light-bg);
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     max-height: 90vh;
     overflow-y: auto;
     border-radius: 20px;
@@ -50,7 +50,7 @@
 
 .ro-verity-header {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .ro-verity-header h2 {
@@ -60,48 +60,97 @@
 
 .ro-verity-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1.5rem;
 }
 
-.ro-verity-card {
+.ro-product-block {
     background: white;
-    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
     padding: 1rem;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-.ro-verity-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+.ro-product-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
-.ro-verity-img-wrap {
+.ro-product-heading h4 {
+    font-size: 1rem;
+}
+
+.ro-item-price {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.ro-product-preview {
     width: 100%;
-    height: 140px;
+    height: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #e2e8f0;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 0.8rem;
+    padding: 8px;
 }
 
-.ro-verity-img-wrap img {
-    max-width: 100%;
-    max-height: 100%;
+.ro-product-preview img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
 }
 
-.ro-verity-card h4 {
-    font-size: 0.95rem;
-    margin-bottom: 0.4rem;
+.ro-item-noimg {
+    font-size: 0.8rem;
+    color: #94a3b8;
 }
 
-.ro-verity-price {
-    color: var(--primary-color);
-    font-weight: 700;
-    font-size: 1.05rem;
+.ro-variant-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.ro-variant-thumb {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    background: var(--light-bg);
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+}
+
+.ro-variant-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 3px;
+    box-sizing: border-box;
+    background: white;
+}
+
+.ro-variant-thumb.active {
+    border-color: var(--primary-color);
+}
+
+.ro-variant-thumb:hover {
+    border-color: var(--accent-color);
 }
 
 @media (max-width: 480px) {
@@ -110,7 +159,6 @@
     }
 
     .ro-verity-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 1rem;
+        grid-template-columns: 1fr;
     }
 }

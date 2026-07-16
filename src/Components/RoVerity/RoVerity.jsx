@@ -1,61 +1,88 @@
 import { useEffect, useState } from 'react'
 import './RoVerity.css'
 
-// Auto-loads every image inside src/assets/roImages at build time
-const imageModules = import.meta.glob('../../assets/roImages/*.{png,jpg,jpeg,PNG,JPG,JPEG}', { eager: true })
+// Auto-loads every image inside any subfolder of src/assets/roImages
+// e.g. src/assets/roImages/Aqua era/001.jpg
+const imageModules = import.meta.glob(
+    '../../assets/roImages/*/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
+    { eager: true }
+)
 
-const getImage = (file) => {
-    const key = Object.keys(imageModules).find((k) => k.endsWith('/' + file))
-    return key ? imageModules[key].default : null
-}
+// Group images by their parent folder name, sorted so 001 comes first
+const folderImages = {}
+Object.keys(imageModules).forEach((path) => {
+    const match = path.match(/roImages\/([^/]+)\/([^/]+)$/)
+    if (!match) return
+    const [, folder, filename] = match
+    if (!folderImages[folder]) folderImages[folder] = []
+    folderImages[folder].push({ filename, url: imageModules[path].default })
+})
+Object.values(folderImages).forEach((arr) =>
+    arr.sort((a, b) => a.filename.localeCompare(b.filename))
+)
 
-// Edit this list: `file` must match the image filename you place in
-// src/assets/roImages (e.g. "001.png"). Fill in the real name & price.
+const getVariants = (folder) => folderImages[folder] || []
+
+// `folder` must match the exact subfolder name inside src/assets/Images
 const RO_PRODUCTS = [
-    { file: '001.jpeg', name: 'Aqua Unique', price: 8999 },
-    { file: '002.jpeg', name: 'Aqua Rain', price: 8499 },
-    { file: '003.jpeg', name: 'Aqua Jade', price: 9499 },
-    { file: '004.jpeg', name: 'Aqua 2090', price: 8999 },
-    { file: '005.jpeg', name: 'Aqua Nine', price: 10999 },
-    { file: '006.jpeg', name: 'Aqua Unique Pro', price: 9999 },
-    { file: '007.jpeg', name: 'Aqua Nine Black', price: 11499 },
-    { file: '008.jpeg', name: 'Aqua Compact', price: 7999 },
-    { file: '009.jpeg', name: 'Waterlily XL', price: 8999 },
-    { file: '010.jpeg', name: 'Waterlily Blue', price: 8499 },
-    { file: '011.jpeg', name: 'Waterlily Metallic Grey', price: 9499 },
-    { file: '012.jpeg', name: 'AquaTouch Mystic', price: 8999 },
-    { file: '013.jpeg', name: 'i-Zynn Copper + Alkaline', price: 12999 },
-    { file: '014.jpeg', name: 'i-Zynn Display Model', price: 13999 },
-    { file: '015.jpeg', name: 'AquaTouch ABS Plastic', price: 8499 },
-    { file: '016.jpeg', name: 'AquaTouch ABS Storage Tank', price: 9499 },
-    { file: '017.jpeg', name: 'i-Zynn LED', price: 12499 },
-    { file: '018.jpeg', name: 'Aqua XL Metallic Grey', price: 9999 },
-    { file: '019.jpeg', name: 'Waterlily Healthy Grey', price: 8999 },
-    { file: '020.jpeg', name: 'Lily Blue', price: 8499 },
-    { file: '021.jpeg', name: 'Aqua XL Cabinet', price: 10999 },
-    { file: '022.jpeg', name: 'Aqua XL', price: 9999 },
-    { file: '023.jpeg', name: 'AquaTouch Mystic ABS', price: 8999 },
-    { file: '024.jpeg', name: 'Aqua Grey Wall Mount', price: 7999 },
-    { file: '025.jpeg', name: 'Waterlily Family Pack', price: 8999 },
-    { file: '026.jpeg', name: 'Lily Metallic Grey', price: 8499 },
-    { file: '027.jpeg', name: 'AquaTouch LED Indicator', price: 9499 },
-    { file: '028.jpeg', name: 'AquaTouch ABS Storage', price: 8999 },
-    { file: '029.jpeg', name: 'Aqua White Compact', price: 7499 },
-    { file: '030.jpeg', name: 'AquaTouch Signature', price: 10499 },
-    { file: '031.jpeg', name: 'Aqua Blue Twin', price: 8999 },
-    { file: '032.jpeg', name: 'Lily Metallic Grey Pro', price: 8999 },
-    { file: '033.jpeg', name: 'Roma Gold', price: 9999 },
-    { file: '034.jpeg', name: 'Roma Food Grade', price: 9499 },
-    { file: '035.jpeg', name: 'Roma Maroon', price: 9999 },
-    { file: '036.jpeg', name: 'Hi-Flo', price: 8499 },
-    { file: '037.jpeg', name: 'Aqua Era', price: 10999 },
-    { file: '038.jpeg', name: 'Aqua Era Pure Efficient', price: 11999 },
-    { file: '039.jpeg', name: 'Aqua Era Light', price: 9999 },
-    { file: '040.jpeg', name: 'Aqua Era Silver', price: 10499 },
-    { file: '041.jpeg', name: 'Aqua Era Compact', price: 8999 },
-    { file: '042.jpeg', name: 'Aqua Era Pro', price: 12999 },
-    { file: '043.jpeg', name: 'Aqua Era Ultra', price: 13999 },
+    { folder: 'Aqua era', name: 'Aqua Era', price: 12222 },
+    { folder: 'Aqua 2090', name: 'Aqua 2090', price: 10000 },
+    { folder: 'Aqua 2090 raga', name: 'Aqua 2090 Raga Serious', price: 11111 },
+    { folder: 'Aqua i pearls', name: 'Aqua i Pearls', price: 11111 },
+    { folder: 'Aqua nine', name: 'Aqua Nine', price: 13000 },
+    { folder: 'Aqua queen', name: 'Aqua Queen', price: 8499 },
+    { folder: 'Aqua mountain', name: 'Aqua Mountain', price: 8399 },
+    { folder: 'Aqua emira', name: 'Aqua Emira', price: 9999 },
+    { folder: 'Aqua Jade', name: 'Aqua Jade', price: 9999 },
+    { folder: 'aqua-xl', name: 'Aqua XL', price: 9999 },
+    { folder: 'Aqua Roma', name: 'Aqua Roma', price: 11111 },
+    { folder: 'Lx one', name: 'Lx One', price: 14444 },
+    { folder: 'Purosis', name: 'Purosis', price: 14999 },
+    { folder: 'Aqua water pia', name: 'Aqua Water Pia', price: 9999 },
+    { folder: 'Aqua touch', name: 'Aqua Touch', price: 10499 },
+    { folder: 'Aqua Water lily', name: 'Aqua Water Lily', price: 9499 },
+    { folder: 'Aqua i-zynn', name: 'Aqua i-Zynn', price: 9499 }, // folder missing from zip — add images later
+    { folder: 'hi-flow', name: 'Hi-Flow', price: 9199 },
+    { folder: 'Aqua mars', name: 'Aqua Mars', price: 9499 },
 ]
+
+function ProductBlock({ product }) {
+    const variants = getVariants(product.folder)
+    const [selected, setSelected] = useState(0)
+    const activeImg = variants[selected]?.url
+
+    return (
+        <div className="ro-product-block">
+            <div className="ro-product-heading">
+                <h4>{product.name}</h4>
+                <p className="ro-item-price">₹{product.price.toLocaleString('en-IN')}</p>
+            </div>
+
+            {activeImg ? (
+                <div className="ro-product-preview">
+                    <img src={activeImg} alt={product.name} loading="lazy" />
+                </div>
+            ) : (
+                <div className="ro-product-preview ro-item-noimg">No Image</div>
+            )}
+
+            {variants.length > 1 && (
+                <div className="ro-variant-row">
+                    {variants.map((variant, i) => (
+                        <button
+                            key={variant.filename}
+                            className={`ro-variant-thumb ${i === selected ? 'active' : ''}`}
+                            onClick={() => setSelected(i)}
+                            type="button"
+                        >
+                            <img src={variant.url} alt={`${product.name} variant ${i + 1}`} loading="lazy" />
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
+    )
+}
 
 function RoVerity({ onClose }) {
     const [isShown, setIsShown] = useState(false)
@@ -85,13 +112,7 @@ function RoVerity({ onClose }) {
 
                 <div className="ro-verity-grid">
                     {RO_PRODUCTS.map((product) => (
-                        <div className="ro-verity-card" key={product.file}>
-                            <div className="ro-verity-img-wrap">
-                                <img src={getImage(product.file)} alt={product.name} loading="lazy" />
-                            </div>
-                            <h4>{product.name}</h4>
-                            <p className="ro-verity-price">₹{product.price.toLocaleString('en-IN')}</p>
-                        </div>
+                        <ProductBlock key={product.folder} product={product} />
                     ))}
                 </div>
             </div>
