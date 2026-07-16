@@ -1,0 +1,116 @@
+.ro-verity-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ro-verity-overlay.show {
+    opacity: 1;
+}
+
+.ro-verity-panel {
+    background: var(--light-bg);
+    width: 100%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ro-verity-overlay.show .ro-verity-panel {
+    transform: scale(1);
+}
+
+.ro-verity-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 32px;
+    cursor: pointer;
+    color: #64748b;
+    transition: 0.3s;
+    line-height: 1;
+}
+
+.ro-verity-close:hover {
+    color: var(--secondary-color);
+}
+
+.ro-verity-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.ro-verity-header h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.ro-verity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+}
+
+.ro-verity-card {
+    background: white;
+    border-radius: 14px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ro-verity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.ro-verity-img-wrap {
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+}
+
+.ro-verity-img-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.ro-verity-card h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.ro-verity-price {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 480px) {
+    .ro-verity-panel {
+        padding: 25px 15px;
+    }
+
+    .ro-verity-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+}
