@@ -41,9 +41,13 @@ const RO_PRODUCTS = [
     { folder: 'Aqua water pia', name: 'Aqua Water Pia', price: 9999 },
     { folder: 'Aqua touch', name: 'Aqua Touch', price: 10499 },
     { folder: 'Aqua Water lily', name: 'Aqua Water Lily', price: 9499 },
-    { folder: 'Aqua i-zynn', name: 'Aqua i-Zynn', price: 9499 }, // folder missing from zip — add images later
+    { folder: 'Aqua i-zynn', name: 'Aqua i-Zynn', price: 9499 },
     { folder: 'hi-flow', name: 'Hi-Flow', price: 9199 },
     { folder: 'Aqua mars', name: 'Aqua Mars', price: 9499 },
+    { folder: 'Aqua Grid', name: 'Aqua Grid', price: 11599 },
+    { folder: 'Aqua V5', name: 'Aqua V5', price: 12199 },
+    { folder: 'Azor', name: 'Azor', price: 17999 },
+    { folder: 'Cosmax', name:'Cosmax', price: 13999 },
 ]
 
 const COMMERCIAL_RO = [
