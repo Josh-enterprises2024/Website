@@ -35,6 +35,19 @@ function MobileNav() {
         return () => observer.disconnect()
     }, [])
 
+    const handleNavClick = (event, item) => {
+        event.preventDefault()
+        setActiveId(item.id)
+
+        if (item.id === 'ro') {
+            window.dispatchEvent(new Event('openRoVerity'))
+            return
+        }
+
+        const section = document.getElementById(item.id)
+        section?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
     return (
         <nav className="mobile-nav">
             {NAV_ITEMS.map((item) => (
@@ -42,7 +55,7 @@ function MobileNav() {
                     key={item.id}
                     href={`#${item.id}`}
                     className={`mobile-nav-item ${activeId === item.id ? 'active' : ''}`}
-                    onClick={() => setActiveId(item.id)}
+                    onClick={(event) => handleNavClick(event, item)}
                 >
                     <span className="mobile-nav-icon">
                         <img src={item.icon} alt={item.label} />

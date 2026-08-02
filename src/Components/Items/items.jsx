@@ -134,6 +134,13 @@ function Items() {
         return () => revealObserver.disconnect()
     }, [])
 
+    // Open RoVerity when mobile nav requests it
+    useEffect(() => {
+        const handleOpenRoVerity = () => setShowRoVerity(true)
+        window.addEventListener('openRoVerity', handleOpenRoVerity)
+        return () => window.removeEventListener('openRoVerity', handleOpenRoVerity)
+    }, [])
+
     // Animate modal show/hide (mirrors the original 300ms fade+scale transition)
     useEffect(() => {
         if (openId) {
