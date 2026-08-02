@@ -480,4 +480,12 @@ footer {
     .back-to-top {
         bottom: 85px;
     }
+
+    footer {
+        padding-bottom: 80px;
+    }
+
+    body {
+        padding-bottom: 60px;
+    }
 }
