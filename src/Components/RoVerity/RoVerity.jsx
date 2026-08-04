@@ -49,6 +49,9 @@ const RO_PRODUCTS = [
     { folder: 'Azor', name: 'Azor', price: 17999 },
     { folder: 'Cosmax', name:'Cosmax', price: 13999 },
     { folder: 'Aqua Orca', name: 'Aqua Orca', price: 14000 },
+    { folder: 'Dolphin Gold', name: 'Dolphin Gold', price: 8500 },
+    { folder: 'G-Tec (hot&cold)', name: 'G-Tec (hot&cold)', price: 7500 },
+    { folder: 'Whale (25 l)', name: 'Whale (25 l)', price: 19000 },
 ]
 
 const COMMERCIAL_RO = [
