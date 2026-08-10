@@ -52,6 +52,7 @@ const RO_PRODUCTS = [
     { folder: 'Dolphin Gold', name: 'Dolphin Gold', price: 8500 },
     { folder: 'G-Tec (hot&cold)', name: 'G-Tec (hot&cold)', price:20000 },
     { folder: 'Whale (25 l)', name: 'Whale (25 l)', price: 19000 },
+    { folderImages: 'One eight', name: 'One eight', price: 28888 },
 ]
 
 const COMMERCIAL_RO = [
