@@ -144,3 +144,31 @@
 .modal-content li {
     margin-bottom: 10px;
 }
+
+/* Cart additions */
+.product-price {
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin: 0.8rem 0 0.4rem;
+    font-size: 1.05rem;
+}
+
+.product-card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.add-to-cart-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.product-card-actions .open-modal {
+    margin-top: 0;
+}

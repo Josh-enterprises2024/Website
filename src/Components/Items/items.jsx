@@ -3,14 +3,19 @@ import cctvImg from '../../assets/cctv.png'
 import roImg from '../../assets/ro.png'
 import tvImg from '../../assets/tv.png'
 import RoVerity from '../RoVerity/RoVerity.jsx'
+import { useCart } from '../../context/CartContext.jsx'
 import './items.css'
 
+// NOTE: cctv/ro/tv are catalog cards covering a whole product range, so the
+// price below is a "starting from" placeholder used only for the cart entry.
+// Update these to match your real starting prices.
 const PRODUCTS = [
     {
         id: 'cctv',
         img: cctvImg,
         alt: 'CCTV Camera',
         title: 'CCTV Security Systems',
+        price: 4999,
         desc: 'High-definition surveillance cameras with night vision and remote access to keep your premises safe 24/7.',
         features: ['3K Resolution', 'Motion Detection', 'Mobile App Support'],
         modal: {
@@ -45,6 +50,7 @@ const PRODUCTS = [
         img: tvImg,
         alt: 'Smart LED TV',
         title: 'Smart LED TVs',
+        price: 7999,
         desc: 'Experience cinematic entertainment at home with our range of high-performance Smart Android TVs.',
         features: ['Starts @ \u20B97,999', '4K Ultra HD Display', 'Dolby Audio'],
         modal: {
@@ -62,6 +68,24 @@ const PRODUCTS = [
 
 function ProductCard({ product, onOpenModal }) {
     const cardRef = useRef(null)
+    const { addToCart } = useCart()
+    const [added, setAdded] = useState(false)
+
+    // The RO card opens the RoVerity catalog, where each specific model has
+    // its own Add to Cart button, so this card-level button is skipped for it.
+    const canAddDirectly = typeof product.price === 'number'
+
+    const handleAddToCart = (e) => {
+        e.stopPropagation()
+        addToCart({
+            id: product.id,
+            name: product.title,
+            price: product.price,
+            img: product.img,
+        })
+        setAdded(true)
+        setTimeout(() => setAdded(false), 1500)
+    }
 
     const handleMouseMove = (e) => {
         const card = cardRef.current
@@ -97,9 +121,19 @@ function ProductCard({ product, onOpenModal }) {
                     <li key={feature}><i className="fa-solid fa-check"></i> {feature}</li>
                 ))}
             </ul>
-            <button className="btn-text open-modal" onClick={() => onOpenModal(product.id)}>
-                View Details <i className="fa-solid fa-arrow-right"></i>
-            </button>
+            {canAddDirectly && (
+                <p className="product-price">From &#8377;{product.price.toLocaleString('en-IN')}</p>
+            )}
+            <div className="product-card-actions">
+                {canAddDirectly && (
+                    <button className="btn-primary add-to-cart-btn" onClick={handleAddToCart}>
+                        {added ? <><i className="fa-solid fa-check"></i> Added</> : <><i className="fa-solid fa-cart-plus"></i> Add to Cart</>}
+                    </button>
+                )}
+                <button className="btn-text open-modal" onClick={() => onOpenModal(product.id)}>
+                    {product.id === 'ro' ? <>Browse RO Models <i className="fa-solid fa-arrow-right"></i></> : <>View Details <i className="fa-solid fa-arrow-right"></i></>}
+                </button>
+            </div>
         </div>
     )
 }
