@@ -64,11 +64,11 @@ const COMMERCIAL_RO = [
     { folder: 'Comersial', name: '25 L/hr', price: 20000, imageFilename: '002.jpeg', desc: 'Commercial-grade RO unit with 25 litres/hour output, a solid fit for smaller offices, clinics, or retail spaces.' },
 ]
 
-function ProductBlock({ product, variantFilename }) {
+function ProductBlock({ product, variantFilename, onBuyNow }) {
     const variants = getVariants(product.folder)
     const [selected, setSelected] = useState(0)
     const [added, setAdded] = useState(false)
-    const { addToCart } = useCart()
+        const { addToCart, buyNow } = useCart()
     const activeVariant = variantFilename
         ? variants.find((variant) => variant.filename === variantFilename) || variants[0]
         : variants[selected] || variants[0]
@@ -83,6 +83,16 @@ function ProductBlock({ product, variantFilename }) {
         })
         setAdded(true)
         setTimeout(() => setAdded(false), 1500)
+    }
+
+        const handleBuyNow = () => {
+        buyNow({
+            id: `ro-${product.folder}-${product.name}`,
+            name: `${product.name} RO Purifier`,
+            price: product.price,
+            img: activeImg,
+        })
+            onBuyNow()
     }
 
     return (
@@ -117,9 +127,14 @@ function ProductBlock({ product, variantFilename }) {
 
             {product.desc && <p className="ro-item-desc">{product.desc}</p>}
 
-            <button type="button" className="ro-add-to-cart-btn" onClick={handleAddToCart}>
-                {added ? <><i className="fa-solid fa-check"></i> Added</> : <><i className="fa-solid fa-cart-plus"></i> Add to Cart</>}
-            </button>
+                        <div className="ro-btn-row">
+                <button type="button" className="ro-add-to-cart-btn" onClick={handleAddToCart}>
+                    {added ? <><i className="fa-solid fa-check"></i> Added</> : <><i className="fa-solid fa-cart-plus"></i> Add to Cart</>}
+                </button>
+                <button type="button" className="ro-buy-now-btn" onClick={handleBuyNow}>
+                    <i className="fa-solid fa-bolt"></i> Buy Now
+                </button>
+            </div>
         </div>
     )
 }
@@ -154,7 +169,7 @@ function RoVerity({ onClose }) {
                     <h3 className="ro-verity-section-title">RO Products</h3>
                     <div className="ro-verity-grid">
                         {RO_PRODUCTS.map((product) => (
-                            <ProductBlock key={product.folder} product={product} />
+                            <ProductBlock key={product.folder} product={product} onBuyNow={handleClose} />
                         ))}
                     </div>
                 </div>
@@ -169,6 +184,7 @@ function RoVerity({ onClose }) {
                                 key={`${product.folder}-${product.name}`}
                                 product={product}
                                 variantFilename={product.imageFilename}
+                                onBuyNow={handleClose}
                             />
                         ))}
                     </div>

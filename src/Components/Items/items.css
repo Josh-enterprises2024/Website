@@ -172,3 +172,17 @@
 .product-card-actions .open-modal {
     margin-top: 0;
 }
+
+.cart-buy-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.buy-now-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}

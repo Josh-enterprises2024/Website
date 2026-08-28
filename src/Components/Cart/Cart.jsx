@@ -10,7 +10,7 @@ function formatINR(amount) {
 }
 
 function Cart() {
-    const { items, isCartOpen, closeCart, removeFromCart, updateQty, clearCart, totalItems, totalPrice } = useCart()
+    const { items, isCartOpen, closeCart, removeFromCart, updateQty, clearCart, totalItems, totalPrice, checkoutIntent, clearCheckoutIntent } = useCart()
     const [isShown, setIsShown] = useState(false)
     const [customer, setCustomer] = useState({ name: '', phone: '' })
     const [showCheckout, setShowCheckout] = useState(false)
@@ -24,6 +24,13 @@ function Cart() {
             setIsShown(false)
         }
     }, [isCartOpen])
+
+        useEffect(() => {
+        if (isCartOpen && checkoutIntent) {
+            setShowCheckout(true)
+            clearCheckoutIntent()
+        }
+    }, [isCartOpen, checkoutIntent, clearCheckoutIntent])
 
     if (!isCartOpen) return null
 

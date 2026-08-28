@@ -13,6 +13,7 @@ function loadCart() {
 }
 
 export function CartProvider({ children }) {
+    const [checkoutIntent, setCheckoutIntent] = useState(false)
     const [items, setItems] = useState(loadCart)
     const [isCartOpen, setIsCartOpen] = useState(false)
 
@@ -32,6 +33,13 @@ export function CartProvider({ children }) {
             }
             return [...prev, { ...product, qty }]
         })
+        setIsCartOpen(true)
+    }
+
+        // Replaces the cart with just this one item and opens straight to checkout
+    const buyNow = (product, qty = 1) => {
+        setItems([{ ...product, qty }])
+        setCheckoutIntent(true)
         setIsCartOpen(true)
     }
 
@@ -58,12 +66,15 @@ export function CartProvider({ children }) {
     const value = {
         items,
         addToCart,
+        buyNow,
         removeFromCart,
         updateQty,
         clearCart,
         isCartOpen,
         openCart,
         closeCart,
+        checkoutIntent,
+        clearCheckoutIntent: () => setCheckoutIntent(false),
         totalItems,
         totalPrice,
     }

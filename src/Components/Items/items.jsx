@@ -68,7 +68,7 @@ const PRODUCTS = [
 
 function ProductCard({ product, onOpenModal }) {
     const cardRef = useRef(null)
-    const { addToCart } = useCart()
+        const { addToCart, buyNow } = useCart()
     const [added, setAdded] = useState(false)
 
     // The RO card opens the RoVerity catalog, where each specific model has
@@ -85,6 +85,16 @@ function ProductCard({ product, onOpenModal }) {
         })
         setAdded(true)
         setTimeout(() => setAdded(false), 1500)
+    }
+
+        const handleBuyNow = (e) => {
+        e.stopPropagation()
+        buyNow({
+            id: product.id,
+            name: product.title,
+            price: product.price,
+            img: product.img,
+        })
     }
 
     const handleMouseMove = (e) => {
@@ -124,11 +134,16 @@ function ProductCard({ product, onOpenModal }) {
             {canAddDirectly && (
                 <p className="product-price">From &#8377;{product.price.toLocaleString('en-IN')}</p>
             )}
-            <div className="product-card-actions">
+                        <div className="product-card-actions">
                 {canAddDirectly && (
-                    <button className="btn-primary add-to-cart-btn" onClick={handleAddToCart}>
-                        {added ? <><i className="fa-solid fa-check"></i> Added</> : <><i className="fa-solid fa-cart-plus"></i> Add to Cart</>}
-                    </button>
+                    <div className="cart-buy-row">
+                        <button className="btn-primary add-to-cart-btn" onClick={handleAddToCart}>
+                            {added ? <><i className="fa-solid fa-check"></i> Added</> : <><i className="fa-solid fa-cart-plus"></i> Add to Cart</>}
+                        </button>
+                        <button className="btn-secondary buy-now-btn" onClick={handleBuyNow}>
+                            <i className="fa-solid fa-bolt"></i> Buy Now
+                        </button>
+                    </div>
                 )}
                 <button className="btn-text open-modal" onClick={() => onOpenModal(product.id)}>
                     {product.id === 'ro' ? <>Browse RO Models <i className="fa-solid fa-arrow-right"></i></> : <>View Details <i className="fa-solid fa-arrow-right"></i></>}
