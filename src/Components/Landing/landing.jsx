@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import logo from '../../assets/logo.jpg'
 import './landing.css'
 import MobileNav from '../MobileNav/MobileNav.jsx'
+import Cart from '../Cart/Cart.jsx'
+import { useCart } from '../../context/CartContext.jsx'
 
 function Landing({ children }) {
     const rootRef = useRef(null)
@@ -10,6 +12,7 @@ function Landing({ children }) {
     const [navOpen, setNavOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
     const [showBackToTop, setShowBackToTop] = useState(false)
+    const { totalItems, openCart } = useCart()
 
     // Form tracking states
     const [formData, setFormData] = useState({
@@ -187,10 +190,16 @@ function Landing({ children }) {
                         <li><a href="#about" onClick={handleNavLinkClick}>About</a></li>
                         <li><a href="#contact" className="btn-primary" style={{ color: 'white' }} onClick={handleNavLinkClick}>Contact Us</a></li>
                     </ul>
-                    <div className={`hamburger ${navOpen ? 'toggle' : ''}`} onClick={() => setNavOpen(!navOpen)}>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
+                    <div className="nav-right">
+                        <button type="button" className="nav-cart-btn" onClick={openCart} aria-label="Open cart">
+                            <i className="fa-solid fa-cart-shopping"></i>
+                            {totalItems > 0 && <span className="nav-cart-badge">{totalItems}</span>}
+                        </button>
+                        <div className={`hamburger ${navOpen ? 'toggle' : ''}`} onClick={() => setNavOpen(!navOpen)}>
+                            <span className="bar"></span>
+                            <span className="bar"></span>
+                            <span className="bar"></span>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -394,6 +403,7 @@ function Landing({ children }) {
                 <i className="fa-solid fa-arrow-up"></i>
             </a>
             <MobileNav />
+            <Cart />
         </div>
     )
 }

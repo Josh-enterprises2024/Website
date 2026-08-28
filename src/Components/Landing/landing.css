@@ -50,6 +50,12 @@
     color: var(--primary-color);
 }
 
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
 .hamburger {
     display: none;
     cursor: pointer;

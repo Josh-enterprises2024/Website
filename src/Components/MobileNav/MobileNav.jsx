@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import cctvIcon from '../../assets/navIcons/cctv.png'
 import roIcon from '../../assets/navIcons/ro.png'
 import tvIcon from '../../assets/navIcons/tv.png'
+import { useCart } from '../../context/CartContext.jsx'
 import './MobileNav.css'
 
 const NAV_ITEMS = [
@@ -12,6 +13,7 @@ const NAV_ITEMS = [
 
 function MobileNav() {
     const [activeId, setActiveId] = useState('cctv')
+    const { totalItems, openCart } = useCart()
 
     useEffect(() => {
         const sections = NAV_ITEMS
@@ -63,6 +65,13 @@ function MobileNav() {
                     <span className="mobile-nav-label">{item.label}</span>
                 </a>
             ))}
+            <button type="button" className="mobile-nav-item mobile-nav-cart" onClick={openCart}>
+                <span className="mobile-nav-icon">
+                    <i className="fa-solid fa-cart-shopping"></i>
+                    {totalItems > 0 && <span className="mobile-nav-cart-badge">{totalItems}</span>}
+                </span>
+                <span className="mobile-nav-label">Cart</span>
+            </button>
         </nav>
     )
 }
