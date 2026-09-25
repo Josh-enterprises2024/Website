@@ -30,14 +30,14 @@ const getVariants = (folder) => folderImages[folder] || []
 // your actual product sheets whenever you get a chance.
 const RO_PRODUCTS = [
     { folder: 'Aqua era', name: 'Aqua Slx', price: 14499, desc: 'Slim wall-mount RO with multi-stage purification, ideal for compact kitchens that still want full filtration power.' },
-    { folder: 'Aqua 2090', name: 'Aqua 2090', price: 10000, desc: 'Budget-friendly RO purifier delivering clean, safe drinking water for small to medium households.' },
-    { folder: 'Aqua 2090 raga', name: 'Aqua 2090 Raga Serious', price: 13333, desc: 'Upgraded version of the 2090 series with a sturdier build and improved filtration for daily heavy use.' },
+    { folder: 'Aqua 2090', name: 'Aqua 2090', price: 12000, desc: 'Budget-friendly RO purifier delivering clean, safe drinking water for small to medium households.' },
+    { folder: 'Aqua 2090 raga', name: 'Aqua 2090 Raga Serious', price: 13000, desc: 'Upgraded version of the 2090 series with a sturdier build and improved filtration for daily heavy use.' },
     { folder: 'Aqua i pearls', name: 'Aqua i Pearls', price: 12222, desc: 'Elegant pearl-finish RO purifier that balances stylish design with reliable multi-stage water purification.' },
     { folder: 'Aqua nine', name: 'Aqua Nine', price: 14444, desc: 'High-capacity purifier with advanced RO+UV+UF technology, well suited for larger families.' },
     { folder: 'Aqua queen', name: 'Aqua Queen', price: 8499, desc: 'Compact and affordable entry-level RO purifier, great for small families and first-time buyers.' },
     { folder: 'Aqua mountain', name: 'Aqua Mountain', price: 8399, desc: 'Reliable everyday RO purifier offering solid filtration performance at a wallet-friendly price.' },
     { folder: 'Aqua emira', name: 'Aqua Emira', price: 13333, desc: 'Premium-look RO purifier with a mineral cartridge that retains essential minerals while removing impurities.' },
-    { folder: 'Aqua Jade', name: 'Aqua Jade', price: 9999, desc: 'Sleek jade-tone purifier with dependable multi-stage filtration for consistently clean water.' },
+    { folder: 'Aqua Jade', name: 'Aqua Jade', price: 11000, desc: 'Sleek jade-tone purifier with dependable multi-stage filtration for consistently clean water.' },
     { folder: 'aqua-xl', name: 'Aqua XL', price: 9999, desc: 'Extra-large storage tank purifier built for homes that need a bigger reserve of purified water on hand.' },
     { folder: 'Aqua Roma', name: 'Aqua Roma', price: 11111, desc: 'Stylish Roma-series purifier combining a modern look with strong purification performance.' },
     { folder: 'Lx one', name: 'Lx One', price: 17599, desc: 'Feature-rich flagship purifier with advanced filtration stages, built for households that want the best.' },
